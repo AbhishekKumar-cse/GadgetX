@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GadgetX - Next Gen Smart Device</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <nav class="navbar container">
+      <div class="logo">GadgetX</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button id="darkModeToggle" class="btn btn-outline">Dark Mode</button>
+    </nav>
+  </header>
+
+  <section class="hero container" id="home">
+    <div class="hero-text">
+        <h1>The Future of Smart Devices is Here</h1>
+      <p>Experience the power, convenience, and elegance with GadgetX — your perfect daily companion.</p>
+      <a href="#download" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80" alt="GadgetX Device" />
+    </div>
+  </section>
+
+  <section class="features container" id="features">
+    <h2>Features</h2>
+    <div class="feature-cards">
+        <div class="card">
+            <img src="https://img.icons8.com/ios-filled/100/4a90e2/speed.png" alt="Fast Performance" />
+        <h3>Lightning Fast Performance</h3>
+        <p>Powered by the latest processors to keep you ahead of the game.</p>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/100/4a90e2/lock--v1.png" alt="Secure" />
+        <h3>Top-notch Security</h3>
+        <p>Advanced encryption keeps your data safe and private.</p>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/100/4a90e2/battery.png" alt="Long Battery" />
+        <h3>All-day Battery Life</h3>
+        <p>Stay unplugged longer with our energy-efficient design.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing container" id="pricing">
+    <h2>Pricing</h2>
+    <div class="pricing-cards">
+      <div class="price-card">
+        <h3>Basic</h3>
+        <p class="price">$99</p>
+        <ul>
+          <li>Core features</li>
+          <li>1-year warranty</li>
+          <li>Email support</li>
+        </ul>
+        <button class="btn btn-outline">Buy Now</button>
+      </div>
+      <div class="price-card featured">
+        <h3>Pro</h3>
+        <p class="price">$199</p>
+        <ul>
+          <li>All Basic features</li>
+          <li>2-year warranty</li>
+          <li>Priority support</li>
+          <li>Free accessories</li>
+        </ul>
+        <button class="btn btn-primary">Buy Now</button>
+      </div>
+      <div class="price-card">
+        <h3>Ultimate</h3>
+        <p class="price">$299</p>
+        <ul>
+          <li>All Pro features</li>
+          <li>3-year warranty</li>
+          <li>24/7 dedicated support</li>
+          <li>Exclusive merchandise</li>
+        </ul>
+        <button class="btn btn-outline">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="download container" id="download">
+    <h2>Get GadgetX Today</h2>
+    <p>Available for purchase online and in stores worldwide.</p>
+    <a href="#" class="btn btn-primary">Buy Now</a>
+    <a href="#" class="btn btn-outline">Learn More</a>
+  </section>
+
+  <section class="contact container" id="contact">
+    <h2>Contact Us</h2>
+    <form id="contactForm" novalidate>
+      <input type="text" id="name" name="name" placeholder="Your Name" required />
+      <input type="email" id="email" name="email" placeholder="Your Email" required />
+      <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    <p id="formResponse" class="form-response"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 GadgetX. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    function loadDarkMode() {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.textContent = 'Light Mode';
+      }
+    }
+
+    function toggleDarkMode() {
+      if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove('dark-mode');
+        darkModeToggle.textContent = 'Dark Mode';
+        localStorage.setItem('darkMode', 'disabled');
+      } else {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.textContent = 'Light Mode';
+        localStorage.setItem('darkMode', 'enabled');
+      }
+    }
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    loadDarkMode();
+
+    // Contact Form Validation
+    const contactForm = document.getElementById('contactForm');
+    const formResponse = document.getElementById('formResponse');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = contactForm.name.value.trim();
+      const email = contactForm.email.value.trim();
+      const message = contactForm.message.value.trim();
+
+      if (!name || !email || !message) {
+        formResponse.textContent = 'Please fill out all fields.';
+        formResponse.style.color = 'red';
+        return;
+      }
+
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!re.test(email.toLowerCase())) {
+        formResponse.textContent = 'Please enter a valid email address.';
+        formResponse.style.color = 'red';
+        return;
+      }
+
+      // Simulate success
+      formResponse.textContent = 'Thank you for contacting us! We will get back to you soon.';
+      formResponse.style.color = 'green';
+
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
